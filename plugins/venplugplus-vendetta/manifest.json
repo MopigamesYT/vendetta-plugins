@@ -1,0 +1,14 @@
+{
+    "name": "VenPlugPlus Vendetta edition",
+    "description": "Vendetta go brrrrrrrrr",
+    "authors": [
+        {
+            "name": "Mopi",
+            "id": "1022189106614243350"
+        }
+    ],
+    "main": "src/index.ts",
+    "vendetta": {
+        "icon": "ic_badge_staff"
+    }
+}
