@@ -21,7 +21,7 @@ export default () => {
             <FormInput
                         type="text"
                         placeholder="Enter Websocket URL"
-                        value={storage.url.toString()}
+                        value={storage.url}
                         onChange={async (event) => {
                             const url = event.target.value;
                             storage.url = url;
