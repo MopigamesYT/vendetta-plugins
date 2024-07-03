@@ -1,8 +1,9 @@
 import { ReactNative as RN } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
-import { Forms } from "@vendetta/ui/components";
+import { Forms, General } from "@vendetta/ui/components";
 
-const { FormSection, FormSwitch, FormInput, FormSlider, FormSelect } = Forms;
+const { FormSection, FormRow, FormSwitch, FormInput, FormDivider } = Forms;
+const { ScrollView } = General;
 
 const settings = useProxy({
     connectAutomatically: true,
@@ -34,151 +35,153 @@ const altOptions = [
 ];
 
 export default () => (
-    <RN.ScrollView>
+    <ScrollView>
         <FormSection title="Connection Settings">
-            <FormSwitch
+            <FormRow
                 label="Connect Automatically"
                 subLabel="If true, it will connect to intiface on startup. (With this off, you need to re-enable the plugin to reconnect)"
-                value={settings.connectAutomatically}
-                onValueChange={(value) => settings.connectAutomatically = value}
+                leading={<FormSwitch
+                    value={settings.connectAutomatically}
+                    onValueChange={(value) => settings.connectAutomatically = value}
+                />}
             />
             <FormInput
-                label="Websocket URL"
-                subLabel="The URL of the websocket server"
+                title="Websocket URL"
+                placeholder="ws://localhost:12345"
                 value={settings.websocketUrl}
                 onChange={(value) => settings.websocketUrl = value}
-                placeholder="ws://localhost:12345"
             />
         </FormSection>
 
         <FormSection title="Vibration Settings">
-            <FormSwitch
+            <FormRow
                 label="Ramp Up and Down"
                 subLabel="If true, it will try and smoothly ramp the vibration intensity up and down"
-                value={settings.rampUpAndDown}
-                onValueChange={(value) => settings.rampUpAndDown = value}
+                leading={<FormSwitch
+                    value={settings.rampUpAndDown}
+                    onValueChange={(value) => settings.rampUpAndDown = value}
+                />}
             />
-            <FormSlider
-                label="Ramp Up and Down Steps"
-                subLabel="How many steps to use when ramping up and down (Higher steps will add more delay)"
-                value={settings.rampUpAndDownSteps}
-                minimumValue={0}
-                maximumValue={40}
-                step={1}
-                onValueChange={(value) => settings.rampUpAndDownSteps = value}
+            <FormInput
+                title="Ramp Up and Down Steps"
+                placeholder="20"
+                keyboardType="numeric"
+                value={settings.rampUpAndDownSteps.toString()}
+                onChange={(value) => settings.rampUpAndDownSteps = parseInt(value) || 0}
             />
-            <FormSlider
-                label="Max Vibration Intensity"
-                subLabel="The maximum intensity of vibration"
-                value={settings.maxVibrationIntensity}
-                minimumValue={0}
-                maximumValue={100}
-                step={1}
-                onValueChange={(value) => settings.maxVibrationIntensity = value}
+            <FormInput
+                title="Max Vibration Intensity"
+                placeholder="70"
+                keyboardType="numeric"
+                value={settings.maxVibrationIntensity.toString()}
+                onChange={(value) => settings.maxVibrationIntensity = parseInt(value) || 0}
             />
         </FormSection>
 
         <FormSection title="Trigger Settings">
             <FormInput
-                label="Target Words"
-                subLabel="Comma-separated list of words to use as targets (used for detecting things when you were not mentioned)"
+                title="Target Words"
+                placeholder="Comma-separated list"
                 value={settings.targetWords}
                 onChange={(value) => settings.targetWords = value}
             />
             <FormInput
-                label="Trigger Words"
-                subLabel="Comma-separated list of words to use as triggers"
+                title="Trigger Words"
+                placeholder="Comma-separated list"
                 value={settings.triggerWords}
                 onChange={(value) => settings.triggerWords = value}
             />
             <FormInput
-                label="Add-On Words"
-                subLabel="Comma-separated list of words to add to the trigger words (increases vibration per word)"
+                title="Add-On Words"
+                placeholder="Comma-separated list"
                 value={settings.addOnWords}
                 onChange={(value) => settings.addOnWords = value}
             />
         </FormSection>
 
         <FormSection title="Filtering Settings">
-            <FormSwitch
+            <FormRow
                 label="Switch Blacklist to Whitelist"
-                subLabel="If true, will switch the blacklist to a whitelist"
-                value={settings.switchBlacklistToWhitelist}
-                onValueChange={(value) => settings.switchBlacklistToWhitelist = value}
+                leading={<FormSwitch
+                    value={settings.switchBlacklistToWhitelist}
+                    onValueChange={(value) => settings.switchBlacklistToWhitelist = value}
+                />}
             />
             <FormInput
-                label="Listed Users"
-                subLabel="Comma-separated list of user IDs to blacklist/whitelist"
+                title="Listed Users"
+                placeholder="Comma-separated user IDs"
                 value={settings.listedUsers}
                 onChange={(value) => settings.listedUsers = value}
             />
             <FormInput
-                label="Listed Channels"
-                subLabel="Comma-separated list of channel IDs to blacklist/whitelist"
+                title="Listed Channels"
+                placeholder="Comma-separated channel IDs"
                 value={settings.listedChannels}
                 onChange={(value) => settings.listedChannels = value}
             />
             <FormInput
-                label="Listed Guilds"
-                subLabel="Comma-separated list of guild IDs to blacklist/whitelist"
+                title="Listed Guilds"
+                placeholder="Comma-separated guild IDs"
                 value={settings.listedGuilds}
                 onChange={(value) => settings.listedGuilds = value}
             />
         </FormSection>
 
         <FormSection title="Alternative Options">
-            <FormSelect
+            <FormRow
                 label="Alternative Options"
-                subLabel="Alternative options to use"
-                value={settings.altOptions}
-                options={altOptions}
-                onValueChange={(value) => settings.altOptions = value}
+                subLabel={settings.altOptions}
+                onPress={() => {
+                    // Implement a custom select dialog here
+                }}
             />
         </FormSection>
 
         <FormSection title="Rich Presence">
-            <FormSwitch
+            <FormRow
                 label="Enable Rich Presence"
                 subLabel="Enable rich presence (requires restart)"
-                value={settings.richPresence}
-                onValueChange={(value) => settings.richPresence = value}
+                leading={<FormSwitch
+                    value={settings.richPresence}
+                    onValueChange={(value) => settings.richPresence = value}
+                />}
             />
             <FormInput
-                label="Rich Presence Title"
-                subLabel="The name of the rich presence"
+                title="Rich Presence Title"
+                placeholder="venPlugPlus"
                 value={settings.richPresenceTitle}
                 onChange={(value) => settings.richPresenceTitle = value}
             />
-            <FormSlider
-                label="RPC Disconnect Timeout"
-                subLabel="Timeout for the 'Intiface not connected' RPC (in minutes)"
-                value={settings.rpcDisconnectTimeout}
-                minimumValue={1}
-                maximumValue={30}
-                step={1}
-                onValueChange={(value) => settings.rpcDisconnectTimeout = value}
+            <FormInput
+                title="RPC Disconnect Timeout (minutes)"
+                placeholder="5"
+                keyboardType="numeric"
+                value={settings.rpcDisconnectTimeout.toString()}
+                onChange={(value) => settings.rpcDisconnectTimeout = parseInt(value) || 5}
             />
         </FormSection>
 
         <FormSection title="Direct User Control">
-            <FormSwitch
+            <FormRow
                 label="Allow Direct User Control"
                 subLabel="Allow other users to directly control your toy"
-                value={settings.allowDirectUserControl}
-                onValueChange={(value) => settings.allowDirectUserControl = value}
+                leading={<FormSwitch
+                    value={settings.allowDirectUserControl}
+                    onValueChange={(value) => settings.allowDirectUserControl = value}
+                />}
             />
             <FormInput
-                label="Allowed Users"
-                subLabel="UserIDs to grant command access to"
+                title="Allowed Users"
+                placeholder="Comma-separated user IDs"
                 value={settings.directControlAllowedUsers}
                 onChange={(value) => settings.directControlAllowedUsers = value}
             />
             <FormInput
-                label="Command Prefix"
-                subLabel="The prefix for the command to be used"
+                title="Command Prefix"
+                placeholder=">."
                 value={settings.directControlCommandPrefix}
                 onChange={(value) => settings.directControlCommandPrefix = value || ">."}
             />
         </FormSection>
-    </RN.ScrollView>
+    </ScrollView>
 );
