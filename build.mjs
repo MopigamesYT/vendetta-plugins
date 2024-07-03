@@ -2,7 +2,7 @@ import { readFile, writeFile, readdir } from "fs/promises";
 import { extname } from "path";
 import { createHash } from "crypto";
 
-import { rollup } from "rollup";
+import { rollup } from "rollup"; 
 import esbuild from "rollup-plugin-esbuild";
 import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
