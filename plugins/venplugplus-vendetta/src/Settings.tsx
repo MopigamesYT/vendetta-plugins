@@ -16,10 +16,11 @@ export default () => (<ScrollView>
                 const url = event.target.value;
                 if (!isValidWebSocketUrl(url)) {
                     logger.log("Invalid Websocket")
-                    return showToast("Invalid Websocket", getAssetIDByName("error"))
+                    return showToast("Invalid Websocket", getAssetIDByName("warning"))
+                } else {
+                    logger.log("Valid Websocket")
+                    return showToast("Valid Websocket", getAssetIDByName("check"))
                 }
-                logger.log("Valid Websocket")
-                return showToast("Valid Websocket", getAssetIDByName("check"))
             }
         }/>
     </FormSection>
