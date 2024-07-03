@@ -19,6 +19,7 @@ export default () => {
         <ScrollView>
             <FormSection>
             <FormInput
+                        label="Websocket URL"
                         type="text"
                         placeholder="Enter Websocket URL"
                         value={storage.url}
