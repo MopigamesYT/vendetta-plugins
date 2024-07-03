@@ -23,14 +23,7 @@ export default () => {
                         placeholder="Enter Websocket URL"
                         onBlur={async (event) => {
                             const url = event.target.value;
-                            if (!isValidWebSocketUrl(url)) {
-                                logger.log("Invalid Websocket");
-                                return showToast("Invalid Websocket", getAssetIDByName("warning"));
-                            } else {
-                                logger.log("Valid Websocket");
-                                return showToast("Valid Websocket", getAssetIDByName("check"));
-                                storage.url = url;
-                            }
+                            storage.url = url;
                         }}
                     />
             </FormSection>
