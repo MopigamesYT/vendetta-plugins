@@ -7,11 +7,11 @@ import { showToast } from "@vendetta/ui/toasts"
 import { isValidWebSocketUrl } from "./index"
 
 const { ScrollView } = General
-const { FormSection, FormRow } = Forms
+const { FormSection, FormRow, FormInput } = Forms
 
 export default () => (<ScrollView>
     <FormSection>
-        <input type="text" placeholder="Enter Websocket URL" onBlur={
+        <FormInput type="text" placeholder="Enter Websocket URL" onBlur={
             async (event) => {
                 const url = event.target.value;
                 if (!isValidWebSocketUrl(url)) {
