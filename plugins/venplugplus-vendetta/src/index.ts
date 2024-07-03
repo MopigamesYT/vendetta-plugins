@@ -2,19 +2,22 @@ import { logger, commands } from "@vendetta";
 import { findByProps } from "@vendetta/metro"
 import Settings from "./Settings";
 import { ButtplugBrowserWebsocketClientConnector, ButtplugClient, ButtplugClientDevice, ButtplugDeviceError } from "buttplug";
+import validator from 'validator';
+
 
 const ClydeUtils = findByProps("sendBotMessage")
 let client: ButtplugClient | null = null;
 
 
 export function isValidWebSocketUrl(url: string): boolean {
-    const webSocketUrlPattern = /^wss?:\/\/(?:[a-zA-Z0-9-._~%]+|(?:\d{1,3}\.){3}\d{1,3})(?::\d{1,5})?(?:\/[^\s]*)?$/;
-
-
-
-    // Test the URL against the pattern
-    return webSocketUrlPattern.test(url);
-}
+    // Use validator.js to check if the URL is a valid WebSocket URL
+    return validator.isURL(url, {
+        protocols: ['ws', 'wss'],
+        require_protocol: true,
+        require_tld: false,  // Allows for localhost and IP addresses without TLD
+        allow_underscores: true,
+    })
+};
 
 export default {
     onLoad: () => {
@@ -26,5 +29,5 @@ export default {
     onUnload: () => {
         logger.log("Goodbye, world.");
     },
-    settings: Settings, 
+    settings: Settings,
 }
