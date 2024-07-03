@@ -15,16 +15,12 @@ export default () => (<ScrollView>
             async (event) => {
                 const url = event.target.value;
                 if (!isValidWebSocketUrl(url)) {
-                    logger.log("Invalid URL")
+                    logger.log("Invalid Websocket")
+                    return showToast("Invalid Websocket", getAssetIDByName("error"))
                 }
+                logger.log("Valid Websocket")
+                return showToast("Valid Websocket", getAssetIDByName("check"))
             }
         }/>
-        <FormRow
-            label="Reload DB"
-            leading={<FormRow.Icon source={getAssetIDByName("ic_message_retry")} />}
-            onPress={async () => {
-                // Add your logic here
-            }}
-        />
     </FormSection>
 </ScrollView>)
