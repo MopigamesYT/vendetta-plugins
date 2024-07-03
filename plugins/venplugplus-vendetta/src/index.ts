@@ -8,7 +8,8 @@ let client: ButtplugClient | null = null;
 
 
 export function isValidWebSocketUrl(url: string): boolean {
-    const webSocketUrlPattern = /^wss?:\/\/[^\s/$.?#].[^\s]*$/;
+    const webSocketUrlPattern = /^wss?:\/\/(?:[a-zA-Z0-9-._~%]+|(?:\d{1,3}\.){3}\d{1,3})(?::\d{1,5})?(?:\/[^\s]*)?$/;
+
 
 
     // Test the URL against the pattern

@@ -11,17 +11,19 @@ const { FormSection, FormRow, FormInput } = Forms
 
 export default () => (<ScrollView>
     <FormSection>
-        <FormInput type="text" placeholder="Enter Websocket URL" onBlur={
-            async (event) => {
-                const url = event.target.value;
-                if (!isValidWebSocketUrl(url)) {
-                    logger.log("Invalid Websocket")
-                    return showToast("Invalid Websocket", getAssetIDByName("warning"))
-                } else {
-                    logger.log("Valid Websocket")
-                    return showToast("Valid Websocket", getAssetIDByName("check"))
-                }
-            }
-        }/>
+    <FormInput
+                type="text"
+                placeholder="Enter Websocket URL"
+                onBlur={async (event) => {
+                    const url = event.target.value;
+                    if (!isValidWebSocketUrl(url)) {
+                        logger.log("Invalid Websocket");
+                        return showToast("Invalid Websocket", getAssetIDByName("warning"));
+                    } else {
+                        logger.log("Valid Websocket");
+                        return showToast("Valid Websocket", getAssetIDByName("check"));
+                    }
+                }}
+            />
     </FormSection>
 </ScrollView>)
