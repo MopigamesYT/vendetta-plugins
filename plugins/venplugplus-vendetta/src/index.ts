@@ -6,6 +6,15 @@ import { ButtplugBrowserWebsocketClientConnector, ButtplugClient, ButtplugClient
 const ClydeUtils = findByProps("sendBotMessage")
 let client: ButtplugClient | null = null;
 
+
+export function isValidWebSocketUrl(url: string): boolean {
+    // Regular expression for WebSocket URL validation
+    const webSocketUrlPattern = /^wss?:\/\/[^\s/$.?#].[^\s]*$/;
+
+    // Test the URL against the pattern
+    return webSocketUrlPattern.test(url);
+}
+
 export default {
     onLoad: () => {
         logger.log("Hello world! test");
